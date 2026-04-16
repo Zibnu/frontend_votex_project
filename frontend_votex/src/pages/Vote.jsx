@@ -8,6 +8,8 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import CardHeader from "../components/CardHeader";
+import Lottie from "react-lottie-player";
+import catAnimation from "../assets/animation/Cat playing animation.json"
 
 
 function Vote() {
@@ -113,22 +115,34 @@ function Vote() {
 
     if (!isOpen) {
         return (
-            <div className="min-h-screen bg-[#F5F7F5] p-6 flex flex-col gap-6 items-center">
+            <div className="min-h-screen bg-linear-to-br from-[#F5F7F5] via-[#E8F5E9] to-[#F5F7F5] p-6 flex flex-col gap-6 items-center">
                 <CardHeader user={user} leftHero={leftHero} rightHero={rightHero} logo={logoSekolah} />
 
-                <div className="bg-white p-6 rounded-xl shadow w-full text-center max-w-5xl">
-                    <h2 className="text-xl font-bold text-[#B45309]">
+                <div className="relative overflow-hidden bg-white/70 backdrop-blur-lg p-8 rounded-2xl shadow-xl w-full text-center max-w-5xl border border-white/40">
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent opacity-0 hover:opacity-100 transition duration-700 -skew-x-12"></div>
+
+                    <div className="flex justify-center mb-4">
+                        <Lottie
+                            animationData={catAnimation}
+                            loop
+                            play
+                            style={{width : 120, height : 120}}
+                        />
+                    </div>
+
+                    <h2 className="text-2xl font-bold text-[#B45309]">
                         Sesi Pemilihan Sedang di Tutup
                     </h2>
-                    <p className="mt-3 text-[#37474F] text-sm">
+
+                    <p className="mt-3 text-[#37474F] text-sm leading-relaxed max-w-md mx-auto">
                         Saat ini panitia sedang menutup akses pemilihan. Silahkan tunggu intruksi lebih lanjut dari guru/panitia, dan silahkan logout!!
                     </p>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl shadow w-full max-w-5xl flex items-center justify-center">
+                <div className="bg-white/80 backdrop-blur-lg p-6 rounded-2xl shadow-lg w-full max-w-5xl flex items-center justify-center border border-white/30">
                     <button
                         onClick={handleLogout}
-                        className="bg-[#D40D0D] text-[#F5F7F5] px-20 py-3 rounded-lg cursor-pointer">
+                        className="bg-[#D40D0D] text-[#F5F7F5] px-24 py-3 rounded-xl font-semibold cursor-pointer hover:scale-105 hover:shadow-lg transition duration-300">
                         Logout
                     </button>
                 </div>
