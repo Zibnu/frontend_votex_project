@@ -30,11 +30,11 @@ function Login() {
 
         try {
             const res = await apiServices.post("/auth/login", form);
-            console.log(res);
+            // console.log(res);
 
-            const token = res.data.token;
-            const user = res.data.user.id_user;
-            const role = res.data.user.role;
+            const token = res.data.data.token;
+            const user = res.data.data.user.id_user;
+            const role = res.data.data.user.role;
 
             if(!token) {
                 console.error("Token Not Found in Response");
@@ -51,10 +51,10 @@ function Login() {
             if(role === "admin") {
                 navigate("/admin/dashboard");
             } else {
-                navigate("/voted");
+                navigate("/vote");
             }
         } catch (error) {
-            const status = error.status;
+            const status = error.response.status;
             const messageError = error.response.data.message;
 
             if(status === 404) {
@@ -79,11 +79,11 @@ function Login() {
             className="w-full max-w-4xl bg-white rounded-2xl shadow-lg overflow-hidden flex"
             >
                 {/* Left */}
-                <div className="hidden md:flex w-1/2 bg-[#107065] text-[#FFF9C4] p-8 flex-col items-center justify-center gap-6 text-center">
+                <div className="hidden md:flex w-1/2 bg-[#107065] text-[#FFF9C4] p-8 flex-col items-center justify-center gap-2 text-center">
                     <img 
                     src={authHero}
                     alt="Hero Auth"
-                    className="w-full max-w-[240px] object-contain"
+                    className="w-full max-w-58 object-contain"
                     />
                     <p className="text-lg md:text-xl font-semibold leading-relaxed">
                         Pilih Kandidat Ketua dan Wakil Ketua Osis Terbaik Menurut Versi Kamu Sendiri
@@ -94,7 +94,7 @@ function Login() {
                 <div className="w-full md:w-1/2 p-8">
                     <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
 
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-5">
                         <input 
                         type="text"
                         name='nisn'
@@ -118,7 +118,7 @@ function Login() {
                         <button 
                         type='submit'
                         disabled={loading}
-                        className="w-full bg-[#FFC107] hover:bg-[#e1aa07] text-white py-2 rounded-lg font-semibold transition disabled:opacity-70">
+                        className="mt-4 w-full bg-[#FFC107] hover:bg-[#e1aa07] text-white py-2  rounded-lg font-semibold transition disabled:opacity-70">
                             {loading ? "Loading...." : "Login"}
                         </button>
                     </form>
