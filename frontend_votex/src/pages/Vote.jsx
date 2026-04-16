@@ -87,7 +87,7 @@ function Vote() {
                 },
             );
             toast.success("Suara Telah Terkirim Terimakasih Sudah Memilih");
-            navigate("/success");
+            navigate("/success_voted");
         } catch (error) {
             const status = error.response?.status;
 
@@ -106,37 +106,53 @@ function Vote() {
     // console.log(selected);
 
     const handleLogout = () => {
-        localStorage.removeItem("token");
+        localStorage.clear();
         toast.success("Logout Berhasil")
         navigate("/");
     };
+
+    useEffect(() => {
+        if(detailModal) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    },[detailModal]);
 
     if (loading) return <div className="text-center text-sm text-gray-500 flex justify-center items-center h-screen">Loading...</div>
 
     if (!isOpen) {
         return (
-            <div className="min-h-screen bg-linear-to-br from-[#F5F7F5] via-[#E8F5E9] to-[#F5F7F5] p-6 flex flex-col gap-6 items-center">
+            <div className="min-h-screen bg-gradient-to-br from-[#F5F7F5] via-[#E8F5E9] to-[#F5F7F5] p-6 flex flex-col gap-6 items-center">
                 <CardHeader user={user} leftHero={leftHero} rightHero={rightHero} logo={logoSekolah} />
 
-                <div className="relative overflow-hidden bg-white/70 backdrop-blur-lg p-8 rounded-2xl shadow-xl w-full text-center max-w-5xl border border-white/40">
+                <div className="relative overflow-hidden bg-white/70 backdrop-blur-lg p-8 rounded-2xl shadow-xl w-full text-center max-w-5xl border border-white/40 hover:scale-[1.01] transition duration-300">
                     <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent opacity-0 hover:opacity-100 transition duration-700 -skew-x-12"></div>
 
-                    <div className="flex justify-center mb-4">
-                        <Lottie
-                            animationData={catAnimation}
-                            loop
-                            play
-                            style={{width : 120, height : 120}}
-                        />
+                    <div className="grid md:grid-cols-2 gap-6 items-center">
+                        <div className="flex justify-center mb-4">
+                            <Lottie
+                                animationData={catAnimation}
+                                loop
+                                play
+                                style={{width : 200, height : 200}}
+                            />
+                        </div>
+
+                        <div className="text-center md:text-left ">
+                            <h2 className="text-2xl font-bold text-[#B45309] mb-3">
+                                Sesi Pemilihan Sedang di Tutup
+                            </h2>
+
+                            <p className="mt-3 text-[#37474F] text-sm leading-relaxed max-w-md mx-auto">
+                                Saat ini panitia sedang menutup akses pemilihan. Silahkan tunggu intruksi lebih lanjut dari guru/panitia, dan silahkan logout!!
+                            </p>
+                        </div>
                     </div>
-
-                    <h2 className="text-2xl font-bold text-[#B45309]">
-                        Sesi Pemilihan Sedang di Tutup
-                    </h2>
-
-                    <p className="mt-3 text-[#37474F] text-sm leading-relaxed max-w-md mx-auto">
-                        Saat ini panitia sedang menutup akses pemilihan. Silahkan tunggu intruksi lebih lanjut dari guru/panitia, dan silahkan logout!!
-                    </p>
                 </div>
 
                 <div className="bg-white/80 backdrop-blur-lg p-6 rounded-2xl shadow-lg w-full max-w-5xl flex items-center justify-center border border-white/30">
@@ -154,38 +170,48 @@ function Vote() {
         <div className='min-h-screen bg-[#F5F7F5] p-6 flex flex-col gap-6 items-center'>
             <CardHeader user={user} leftHero={leftHero} rightHero={rightHero} logo={logoSekolah} />
 
-            <div className="grid md:grid-cols-2 gap-6 w-full max-w-xl">
+            <div className="grid md:grid-cols-2  gap-6 w-full max-w-5xl">
                 {candidate.map((candidat, index) => (
                     <div 
                     key={candidat.id_candidate}
-                    className={`bg-white p-4 rounded-xl shadow cursor-pointer border ${selected === candidat.id_candidate ? "border-green-500" : ""}`}
+                    className={`
+                        relative overflow-hidden cursor-pointer bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-md
+                        border transition-all duration-300 h-full flex flex-col justify-between
+                        ${selected === candidat.id_candidate
+                            ? "border-[#107065] ring-2 ring-[#107065]/90 scale-[1.02]"
+                            : "border-white/40 hover:shadow-xl hover:scale-[1.02]"
+                        }
+                        `
+                    }
                     onClick={() => setSelected(candidat.id_candidate)}
                     >
-                        <div className="text-[#2E7D32] font-bold">{index + 1}</div>
+                        <div className="flex-1">
+                            <div className="text-[#2E7D32] font-bold">{index + 1}</div>
 
-                        <img 
-                        src={candidat.image} 
-                        alt="Image Candidate" 
-                        className="w-24 h-24 rounded-full mx-auto"/>
+                            <img 
+                            src={candidat.image} 
+                            alt="Image Candidate" 
+                            className="w-24 h-24 rounded-full mx-auto"/>
 
-                        <h4 className="text-center font-semibold mt-2">
-                            {candidat.ketua_name} & {candidat.wakil_name}
-                        </h4>
+                            <h4 className="text-center font-semibold mt-2">
+                                {candidat.ketua_name} & {candidat.wakil_name}
+                            </h4>
 
-                        <p className="text-lg text-[#212121] mt-5">
-                            Visi & Misi
-                        </p>
+                            <p className="text-lg text-[#212121] mt-5">
+                                Visi & Misi
+                            </p>
 
                         <p className="text-sm mt-2">
                             { candidat.visi.slice(0, 80)}
                         </p>
+                        </div>
 
                         <button 
                         onClick={(e) => {
                             e.stopPropagation();
                             setDetailModal(candidat);
                         }}
-                        className="text-blue-500 mt-2">
+                        className="text-[#212121] mt-3 font-medium hover:underline">
                             Lihat Detail
                         </button>
                     </div>
@@ -199,44 +225,60 @@ function Vote() {
 
                 <button 
                 onClick={handleVote}
-                className="bg-[#FFC107] px-6 py-3 rounded-lg font-semibold text-[#1A3C28] cursor-pointer">
-                    Kirim Suara Saya
+                className="
+                    relative overflow-hidden bg-[#FFC107] px-6 py-3 rounded-xl font-semibold text-[#1A3C28] cursor-pointer transition duration-300
+                    hover:scale-[1.02] hover:shadow-xl
+                ">
+                    <span className="relative z-10">Kirim Suara Saya</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 hover:opacity-100 transition duration-700 -skew-12"></div>
                 </button>
             </div>
 
             {/* Modal  */}
             {detailModal && (
-                <div className="fixed inset-0 bg-black/60 flex justify-center items-center">
+                <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
                     <motion.div 
                     initial={{scale : 0.8}}
                     animate={{scale : 1}}
-                    className="bg-white p-6 rounded-xl max-w-md relative">
+                    className="bg-white p-6 rounded-2xl w-full max-w-md max-h-[90vh] flex flex-col shadow-xl relative">
                         <button 
                         onClick={() => setDetailModal(null)}
-                        className="absolute top-2 right-2 cursor-pointer text-black hover:text-gray-400">
+                        className="absolute top-2 right-2 cursor-pointer text-black hover:text-gray-400 transition-colors">
                             <FiXSquare size={15}/>
                         </button>
 
-                        <img 
+                    <div className="shrink-0">
+                        <img
                         src={detailModal.image} 
                         alt="Image Candidate"
-                        className="w-24 h-24 rounded-full mx-auto"
+                        className="w-24 h-24 rounded-full mx-auto object-cover border-2 border-gray-200"
                         />
 
-                        <h3 className="text-center font-semibold mt-2">
+                        <h3 className="text-center font-semibold text-xl mt-4">
                             {detailModal.ketua_name} & {detailModal.wakil_name}
                         </h3>
+                        <div className="h-px bg-gray-100 w-full mt-4"></div>
+                    </div>
 
-                        <p className="text-lg text-[#212121] mt-5">
+                    <div className="overflow-y-auto pr-2 mt-4">
+                        <p className="text-lg font-semibold text-[#212121] mb-2">
                             Visi & Misi
                         </p>
-
-                        <p className="mt-2 text-sm text-[#37474F]">
-                            {detailModal.visi}
-                        </p>
-                        <p className="mt-2 text-sm text-[#37474F]">
-                            {detailModal.misi}
-                        </p>
+                        <div className="text-sm text-[#37474F] space-y-4">
+                            <div>
+                                <h4 className="font-medium text-gray-700">Visi :</h4>
+                                <p className='leading-relaxed'>
+                                    {detailModal.visi}
+                                </p>
+                            </div>
+                            <div>
+                                <h4 className="font-medium to-gray-700">Misi :</h4>
+                                <p className="leading-relaxed whitespace-pre-line">
+                                    {detailModal.misi}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                     </motion.div>
                 </div>
             )}
