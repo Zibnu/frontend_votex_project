@@ -8,7 +8,7 @@ import logoSekolah from "../../assets/image/logoSekolah.png";
 import { TbLayoutSidebarRightCollapse, TbLayoutSidebarLeftCollapse } from "react-icons/tb";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FiAirplay } from 'react-icons/fi';
+import { MdOutlineLogout } from "react-icons/md";
 
 function Sidebar() {
     const [isOpen, setIsOpen] = useState(true);
@@ -29,7 +29,8 @@ function Sidebar() {
     return (
         <motion.div
             animate={{width : isOpen ? 240 : 80}}
-            className='h-screen bg-[#1A3C28] text-white flex flex-col justify-between p-4'
+            transition={{duration : 0.3, type : "spring", damping : 15}}
+            className='h-screen bg-[#1A3C28] text-white top-0 sticky flex flex-col justify-between p-4'
         >
             <div>
                 <div className="flex flex-col items-center mb-6">
@@ -64,7 +65,7 @@ function Sidebar() {
                                     flex items-center gap-3 rounded-lg cursor-pointer
                                     transition-all duration-300
                                     ${isActive ? 
-                                        "bg-white/10 text-[#FFC107]" 
+                                        "font-bold text-[#FFC107]" 
                                             : 
                                         "text-[#A5B49D] hover:bg-white/30 hover:text-white"
                                     }
@@ -86,7 +87,7 @@ function Sidebar() {
             <div 
                 onClick={handleLogout}
                 className="flex items-center gap-3 bg-red-600 p-3 rounded-lg cursor-pointer hover:bg-red-700 transition">
-                    <FiAirplay/>
+                    <MdOutlineLogout/>
                     {isOpen && <span>Logout</span>}
                 </div>
         </motion.div>

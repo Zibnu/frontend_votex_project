@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import apiServices from '../../utils/api';
 import toast from 'react-hot-toast';
 import { FaUsers } from "react-icons/fa";
@@ -7,15 +7,37 @@ import { TbUserQuestion } from "react-icons/tb";
 import { motion } from 'framer-motion';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { BarChart } from '@mui/x-charts/BarChart';
+import { useQuery } from '@tanstack/react-query';
 
 function DashboardPage() {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
+    // const [data, setData] = useState(null);
+    // const [loading, setLoading] = useState(true);
 
-    const COLORS = ["#3B82F6", "#F59E0B", "#10B981", "#EF4444", "#8B5CF6"];
+    // const fetchData = async () => {
+    //     try {
+    //         const token = localStorage.getItem("token");
 
-    const fetchData = async () => {
-        try {
+    //         const res = await apiServices.get("/dashboard/dashboard_data", {
+    //             headers : {
+    //                 Authorization : `Bearer ${token}`,
+    //             },
+    //         });
+    //         setData(res.data.data);
+    //     } catch (error) {
+    //         console.error(error);
+    //         toast.error(error.response?.data?.message || "Gagal Mengambil Data Dashboard");
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     fetchData();
+    // }, []);
+
+    const { data, isLoading, isError, error} = useQuery({
+        queryKey : ["dashboard"],
+        queryFn : async () => {
             const token = localStorage.getItem("token");
 
             const res = await apiServices.get("/dashboard/dashboard_data", {
@@ -23,21 +45,20 @@ function DashboardPage() {
                     Authorization : `Bearer ${token}`,
                 },
             });
-            setData(res.data.data);
-        } catch (error) {
-            console.error(error);
-            toast.error(error.response?.data?.message || "Gagal Mengambil Data Dashboard");
-        } finally {
-            setLoading(false);
-        }
-    };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+            return res.data.data;
+        },
+        refetchInterval : 5000,
+        refetchOnWindowFocus : true,
+        retry : 2,
+    });
 
-    if(loading) return <div className="text-center text-gray-500 flex justify-center items-center h-screen">Loading....</div>
-    if(!data) return <div className="text-center text-red-400 justify-center">No Data!!</div>
+    if(isLoading) return <div className="text-center text-gray-500 flex justify-center items-center h-screen">Loading....</div>
+    if(isError) {
+        toast.error(error?.response?.data?.message || "Gagal Mendapatkan Data Dashboard");
+        return <div className="text-center text-red-500">Something Wrong...</div>
+    }
+    if(!data) return <div className="text-center text-red-400">No Data!!</div>
 
     const pieData = [
         {
@@ -60,15 +81,8 @@ function DashboardPage() {
         },
     ];
 
-    const barData = data.votesPerCandidate.map((item, index) => ({
-        label : item.ketua_name,
-        value : item.total_votes,
-        color : COLORS[index % COLORS.length],
-    }))
-
-
     const barLabels = data.votesPerCandidate.map((item) => `${item.ketua_name}`);
-    const barValues = data.votesPerCandidate.map((item) => `${item.total_votes}`);
+    const barValues = data.votesPerCandidate.map((item) => item.total_votes);
 
     return (
         <div className='p-6 space-y-6'>
@@ -164,7 +178,7 @@ function DashboardPage() {
                 series={[
                     {
                         data : barValues,
-                        color : "#F59E0B"
+                        color : "#10B981"
                     }
                 ]}
                 width={500}
