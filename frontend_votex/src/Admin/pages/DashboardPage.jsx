@@ -53,12 +53,19 @@ function DashboardPage() {
             color : "#2E7D32",
         },
         {
-            id : 1,
+            id : 2,
             value : data.chartData.not_voted,
             label : "Total Not Voted",
             color : "#F57C00",
         },
     ];
+
+    const barData = data.votesPerCandidate.map((item, index) => ({
+        label : item.ketua_name,
+        value : item.total_votes,
+        color : COLORS[index % COLORS.length],
+    }))
+
 
     const barLabels = data.votesPerCandidate.map((item) => `${item.ketua_name}`);
     const barValues = data.votesPerCandidate.map((item) => `${item.total_votes}`);
@@ -109,7 +116,7 @@ function DashboardPage() {
                 <motion.div 
                 whileHover={{scale : 1.03}}
                 className="bg-white p-4 rounded-xl shadow flex items-center gap-4">
-                    <TbUserQuestion size={40}/>
+                    <ImUserTie size={40}/>
                     <div>
                         <p className="text-sm text-[#37474F]">Candidate</p>
                         <h2 className="text-xl font-bold text-[#673AB7]">
@@ -152,11 +159,13 @@ function DashboardPage() {
                 <h2 className="mb-4 font-semibold">Votes Per Candidate</h2>
 
                 <BarChart
-                xAxis={{ scaleType : "band", data : barLabels}}
+                layout='horizontal'
+                yAxis={[{ scaleType : "band", data : barLabels}]}
                 series={[
                     {
                         data : barValues,
-                    },
+                        color : "#F59E0B"
+                    }
                 ]}
                 width={500}
                 height={300}
