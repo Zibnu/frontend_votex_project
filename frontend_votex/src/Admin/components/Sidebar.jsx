@@ -6,14 +6,14 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import logoSekolah from "../../assets/image/logoSekolah.png";
 import { TbLayoutSidebarRightCollapse, TbLayoutSidebarLeftCollapse } from "react-icons/tb";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MdOutlineLogout } from "react-icons/md";
 
 function Sidebar() {
     const [isOpen, setIsOpen] = useState(true);
     const navigate = useNavigate();
-    const location = useLocation();
+    // const location = useLocation();
 
     const menu = [
         {name : "Dashboard", icon : <LuLayoutDashboard/>, path : "/admin/dashboard"},
@@ -30,11 +30,48 @@ function Sidebar() {
         <motion.div
             animate={{width : isOpen ? 240 : 80}}
             transition={{duration : 0.3, type : "spring", damping : 15}}
-            className='h-screen bg-[#1A3C28] text-white top-0 sticky flex flex-col justify-between p-4'
+            className='h-screen bg-[#1A3C28] text-white top-0 sticky flex flex-col p-4'
         >
+            <button 
+            onClick={() => setIsOpen(!isOpen)}
+            className="absolute -right-3 top-6 bg-gray-200 text-black p-2 rounded-full shadow cursor-pointer">
+                {isOpen ? (
+                    <TbLayoutSidebarLeftCollapse size={20} />
+                ) : (
+                    <TbLayoutSidebarRightCollapse size={20} />
+                )}
+            </button>
+
+            <div className="items-center mb-8 mt-4 px-2 flex flex-col">
+                <img src={logoSekolah} alt="Logo Sekolah" className="w-23 mb-2 " />
+                <span className="font-bold text-lg text-[#FFF9C4] ">
+                    {isOpen && "Votex"}
+                </span>
+            </div>
+
+            <nav className="flex flex-col gap-2">
+                {menu.map((item, index) => {
+                    // const Icon = item.icon;
+
+                    return (
+                        <NavLink
+                        key={index}
+                        to={item.path}
+                        className={({isActive}) => `flex items-center gap-3 px-4 py-2 rounded-md transition ${
+                            isActive ? "font-bold text-[#FFC107]" : "text-[#A5B49D] hover:text-[#FFC107]"
+                        }`}
+                        >
+                            <span className="text-xl">
+                                {item.icon}
+                            </span>
+                            {isOpen && <span>{item.name}</span>}
+                        </NavLink>
+                    )
+                })}
+            </nav>
+{/* 
             <div>
                 <div className="flex flex-col items-center mb-6">
-                    <img src={logoSekolah} alt="Logo Sekolah" className="w-12 mb-2" />
                     {isOpen && (
                         <p className="text-sm text-[#FFF9C4]">
                             Welcome Admin
@@ -82,14 +119,16 @@ function Sidebar() {
                         )
                     })}
                 </div>
-            </div>
+            </div> */}
 
-            <div 
+            <button 
                 onClick={handleLogout}
-                className="flex items-center gap-3 bg-red-600 p-3 rounded-lg cursor-pointer hover:bg-red-700 transition">
-                    <MdOutlineLogout/>
+                className={`mt-auto flex items-center cursor-pointer ${
+                    isOpen ? "gap-3 px-4 justify-start" : "justify-center"
+                } py-3 rounded-md bg-[#e31313] text-[#f9f9f9] hover:bg-[#b50d0d] transition`}>
+                    <MdOutlineLogout size={22}/>
                     {isOpen && <span>Logout</span>}
-                </div>
+                </button>
         </motion.div>
     )
 }
