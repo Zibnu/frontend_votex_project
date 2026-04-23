@@ -2,7 +2,7 @@ import React from 'react'
 import { FaPencilAlt } from "react-icons/fa";
 import { FaRegTrashCan, FaPlus } from "react-icons/fa6";
 
-function CandidateTable({data}) {
+function CandidateTable({data, onEdit, onDelete}) {
     return (
         <div className='bg-white p-4 rounded-xl shadow'>
             <div className="overflow-x-auto">
@@ -36,16 +36,16 @@ function CandidateTable({data}) {
                                 </td>
                                 <td className="flex gap-2">
                                     <button 
-                                    onClick={() => console.log("Edit Candidate")}
-                                    className="p-2 rounded-lg transition hover:scale-105"
+                                    onClick={() => onEdit(item)}
+                                    className="p-2 rounded-lg transition hover:scale-105 cursor-pointer"
                                     style={{ backgroundColor : "#E3F2FD"}}
                                     >
                                         <FaPencilAlt/>
                                     </button>
 
                                     <button 
-                                    onClick={() => console.log("Delete Candidate")}
-                                    className="p-2 rounded-lg transition hover:scale-105"
+                                    onClick={() => onDelete(item)}
+                                    className="p-2 rounded-lg transition hover:scale-105 cursor-pointer"
                                     style={{ backgroundColor : "#FFEBEE"}}
                                     >
                                         <FaRegTrashCan color='#F48CA3'/>

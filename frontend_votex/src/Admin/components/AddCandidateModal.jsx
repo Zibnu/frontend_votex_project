@@ -78,7 +78,7 @@ function AddCandidateModal({onClose, onSuccess}) {
             className="bg-white p-6 rounded-xl w-100 relative">
                 <button 
                 onClick={onClose}
-                className="absolute top-3 right-3">
+                className="absolute top-3 right-3 cursor-pointer">
                     <FaRegWindowClose size={22}/>
                 </button>
 
@@ -101,17 +101,11 @@ function AddCandidateModal({onClose, onSuccess}) {
                     name="wakil_name"
                     />
 
-                    <label className="w-full mb-6 flex items-center gap-3 p-4 cursor-pointer rounded-lg ">
-                        <MdDriveFolderUpload/>
-                        <span>
-                            Image Candidate <span className="text-red-500 text-xs">(JPG/PNG/JPEG Max 5 Mb)</span>
-                        </span>
                         <input 
                         type="file"
                         onChange={handleImage} 
                         className='w-full p-2 bg-gray-100 rounded'
                         />
-                    </label>
 
                     <textarea 
                     className="w-full p-2 bg-gray-100 rounded" 
@@ -130,7 +124,7 @@ function AddCandidateModal({onClose, onSuccess}) {
 
                 <button 
                 onClick={handleSubmit}
-                className="mt-4 w-full py-2 bg-yellow-300 rounded font-semibold">
+                className="mt-4 w-full py-2 bg-yellow-400 rounded font-semibold">
                     Save Candidate
                 </button>
             </motion.div>
