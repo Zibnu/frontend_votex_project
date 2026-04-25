@@ -3,7 +3,7 @@ import { FaPencilAlt } from "react-icons/fa";
 import { FaRegTrashCan } from "react-icons/fa6";
 import toast from "react-hot-toast";
 
-function UserTable({users, currentPage, limit }) {
+function UserTable({users, currentPage, itemsPerPage , onEdit, onDelete}) {
     return (
         <div className='bg-white p-4 rounded-xl shadow'>
             <div className="overflow-x-auto">
@@ -24,7 +24,7 @@ function UserTable({users, currentPage, limit }) {
                             key={user.id_user}
                             className="border-b hover:bg-gray-100 transition">
                                 <td className="py-3">
-                                    {(currentPage - 1) * limit + (index + 1)}
+                                    {(currentPage - 1) * itemsPerPage + index + 1}
                                 </td>
 
                                 <td>{user.nisn}</td>
@@ -44,14 +44,14 @@ function UserTable({users, currentPage, limit }) {
 
                                 <td className="flex gap-2">
                                     <button 
-                                    onClick={() => toast.success("Edit Clicked")}
-                                    className="p-2 rounded-lg hover:scale-105 bg-[#E3F2FD] transition">
+                                    onClick={() => onEdit(user)}
+                                    className="p-2 rounded-lg hover:scale-105 bg-[#E3F2FD] transition cursor-pointer">
                                         <FaPencilAlt/>
                                     </button>
 
                                     <button 
-                                    onClick={() => toast.success("Delete Clicked")}
-                                    className="p-2 rounded-lg hover:scale-105 bg-[#FF2444] transition">
+                                    onClick={() => onDelete(user)}
+                                    className="p-2 rounded-lg hover:scale-105 bg-[#FF2444] transition cursor-pointer">
                                         <FaRegTrashCan/>
                                     </button>
                                 </td>
