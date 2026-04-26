@@ -11,7 +11,7 @@ import DeleteUserModal from '../components/DeleteUserModal'
 import ImportUserModal from '../components/ImportUserModal'
 import { useRef } from 'react'
 
-function UserPage() {
+function ManageUserPage() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
@@ -75,13 +75,33 @@ function UserPage() {
 
         try {
             const token = localStorage.getItem("token");
-            await apiServices.post("/users/import", formData, {
+            const res = await apiServices.post("/users/import", formData, {
                 headers : {
                     Authorization : `Bearer ${token}`,
                 },
+                responseType : "blob",
             });
 
-            toast.success("Import Success");
+            const url = window.URL.createObjectURL(res.data);
+            const link = document.createElement("a");
+
+            const contentDisposition = res.headers["content-disposition"];
+            let fileName = "import-result.xlsx";
+
+            if(contentDisposition) {
+                const match = contentDisposition.match(/filename="?(.+)"?/);
+                if(match) fileName = match[1];
+            };
+
+            link.href = url;
+            link.setAttribute("download", fileName);
+            document.body.appendChild(link);
+            link.click();
+
+            link.remove();
+            window.URL.revokeObjectURL(url);
+
+            toast.success("Import Success & File Downloaded");
             e.target.value = null;
             fetchUser();
         } catch (error) {
@@ -164,6 +184,23 @@ function UserPage() {
         }
     }
 
+    const handleDeleteAll = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            await apiServices.delete("/users/delete_all", {
+                headers : {
+                    Authorization : `Bearer ${token}`,
+                },
+            });
+
+            toast.success("Delete All User Success");
+            fetchUser();
+        } catch (error) {
+            console.error(error);
+            toast.error(error.response?.data?.message || "Failed Delete All User");
+        }
+    }
+
     if (loading) return <div className="flex items-center justify-center h-screen text-gray-600">Loading....</div>
     return (
         <div className='p-6 space-y-6'>
@@ -202,7 +239,7 @@ function UserPage() {
                 />
 
                 <button 
-                onClick={() => toast.success("Delete All Cliked")}
+                onClick={handleDeleteAll}
                 className="bg-red-500 text-white px-4 py-2 rounded-lg hover:opacity-90 cursor-pointer">
                     Delete All
                 </button>
@@ -265,4 +302,4 @@ function UserPage() {
     )
 }
 
-export default UserPage
+export default ManageUserPage
