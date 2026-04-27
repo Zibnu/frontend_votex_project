@@ -7,6 +7,7 @@ import AdminLayout from "../layouts/AdminLayout"
 import DashboardPage from '../Admin/pages/DashboardPage';
 import CandidatePage from '../Admin/pages/CandidatePage';
 import ManageUserPage from '../Admin/pages/ManageUserPage';
+import SettingPage from "../Admin/pages/SettingPage";
 
 function AppRouter() {
     return (
@@ -20,6 +21,7 @@ function AppRouter() {
                 <Route path='/admin/dashboard' element={<DashboardPage/>} />
                 <Route path='/admin/candidates' element={<CandidatePage/>} />
                 <Route path='/admin/users' element={<ManageUserPage/>} />
+                <Route path='/admin/setting' element={<SettingPage/>} />
             </Route>
         </Routes>
     )
