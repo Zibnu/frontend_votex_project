@@ -211,8 +211,8 @@ function ManageUserPage() {
                     onChange={handleFileChange}
                     hidden
                     />
-            <div className="bg-white p-4 rounded-xl shadow flex justify-between items-center">
-                <h2 className="text-xl font-bold">Manage Users</h2>
+            <div className="bg-white p-4 py-8 rounded-xl shadow flex justify-between items-center">
+                <h2 className="text-2xl font-semibold">Manage Users</h2>
 
                 <div className="flex gap-2">
                     <button

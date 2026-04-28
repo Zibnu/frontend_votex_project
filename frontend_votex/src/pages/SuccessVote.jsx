@@ -22,11 +22,11 @@ function SuccessVote() {
                     animationData={successAnimation}
                     loop
                     play
-                    className='w-40'
+                    className='w-60'
                 />
             </div>
 
-            <h2 className="text-2xl font-semibold text-[#212121] leading-relaxed">
+            <h2 className="text-2xl font-semibold text-[#215B63] leading-relaxed">
                 Terimakasih Sudah Memilih <br />
                 Semoga Pilihanmu yang Terbaik
             </h2>

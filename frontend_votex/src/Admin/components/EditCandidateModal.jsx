@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import apiServices from '../../utils/api'
 import toast from 'react-hot-toast'
 import { FaRegWindowClose } from "react-icons/fa";
@@ -72,10 +72,13 @@ function EditCandidateModal({onClose, onSuccess, candidate}) {
     }
 
     return (
-        <div className='fixed inset-0 bg-black/40 flex justify-center items-center z-50'>
+    <AnimatePresence>
+        <div className='fixed inset-0 bg-black/45 p-4 flex justify-center items-center z-50'>
             <motion.div 
-            initial={{scale : 0.8}}
-            animate={{scale : 1}}
+            initial={{scale : 0.85, opacity : 0}}
+            animate={{scale : 1, opacity : 1}}
+            exit={{scale : 0.85, opacity : 0}}
+            transition={{type : "spring", stiffness : 300, damping : 25}}
             className="bg-white p-6 rounded-xl w-100 relative">
                 <button 
                 onClick={onClose}
@@ -106,6 +109,7 @@ function EditCandidateModal({onClose, onSuccess, candidate}) {
 
                         <input 
                         type="file"
+                        accept=".jpg,.jpeg,.png"
                         onChange={handleImage} 
                         className='w-full p-2 bg-gray-100 rounded'
                         />
@@ -132,6 +136,7 @@ function EditCandidateModal({onClose, onSuccess, candidate}) {
                 </div>
             </motion.div>
         </div>
+    </AnimatePresence>
     )
 }
 

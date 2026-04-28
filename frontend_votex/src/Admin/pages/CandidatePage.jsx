@@ -41,12 +41,12 @@ function CandidatePage() {
 
     return (
         <div className='p-6 space-y-6'>
-            <div className="bg-white p-4 rounded-xl shadow flex justify-between items-center">
-                <h2 className="text-xl font-semibold">Manage Candidate</h2>
+            <div className="bg-white p-4 py-8 rounded-xl shadow flex justify-between items-center">
+                <h2 className="text-2xl font-semibold">Manage Candidate</h2>
 
                 <button 
                 onClick={() => setShowAdd(true)}
-                className="p-2 rounded-lg bg-[#BAE0BD] transition hover:scale-105 cursor-pointer">
+                className="p-2 py-3 px-3 rounded-lg bg-[#BAE0BD] transition hover:scale-105 cursor-pointer hover:bg-[#a9c7ac]">
                     <FaPlus color='#5E9C76'/>
                 </button>
             </div>

@@ -67,8 +67,8 @@ function SettingPage() {
     if (loading) return <div className="items-center flex justify-center text-gray-700 h-screen">Loading...</div>
     return (
         <div className='p-6 space-y-6'>
-            <div className="bg-white p-4 rounded-xl shadow flex justify-between items-center">
-                <h2 className="text-xl font-bold text-[#1A3C28]">System Setting</h2>
+            <div className="bg-white p-7 py-8 rounded-xl shadow flex justify-between items-center">
+                <h2 className="text-2xl font-semibold text-[#1A3C28]">System Setting</h2>
 
                 <div className="flex items-center gap-2">
                     <span 

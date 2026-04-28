@@ -8,20 +8,46 @@ import DashboardPage from '../Admin/pages/DashboardPage';
 import CandidatePage from '../Admin/pages/CandidatePage';
 import ManageUserPage from '../Admin/pages/ManageUserPage';
 import SettingPage from "../Admin/pages/SettingPage";
+import AdminRoute from './AdminRoute';
+import UserRoute from './UserRoute';
 
 function AppRouter() {
     return (
         <Routes>
             <Route path='/' element={<Login />} />
 
-            <Route path='/vote' element={<Vote/>} />
-            <Route path='/success_voted' element={<SuccessVote/>} />
+            <Route path='/vote' element={
+                <UserRoute>
+                    <Vote/>
+                </UserRoute>
+            } />
+            <Route path='/success_voted' element={
+                <UserRoute>
+                    <SuccessVote/>
+                </UserRoute>
+                } />
 
             <Route element={<AdminLayout/>}>
-                <Route path='/admin/dashboard' element={<DashboardPage/>} />
-                <Route path='/admin/candidates' element={<CandidatePage/>} />
-                <Route path='/admin/users' element={<ManageUserPage/>} />
-                <Route path='/admin/setting' element={<SettingPage/>} />
+                <Route path='/admin/dashboard' element={
+                    <AdminRoute>
+                        <DashboardPage/>
+                    </AdminRoute>
+                    } />
+                <Route path='/admin/candidates' element={
+                    <AdminRoute>
+                        <CandidatePage/>
+                    </AdminRoute>
+                    } />
+                <Route path='/admin/users' element={
+                    <AdminRoute>
+                        <ManageUserPage/>
+                    </AdminRoute>
+                    } />
+                <Route path='/admin/setting' element={
+                    <AdminRoute>
+                        <SettingPage/>
+                    </AdminRoute>
+                    } />
             </Route>
         </Routes>
     )
