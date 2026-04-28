@@ -71,14 +71,14 @@ function AddCandidateModal({onClose, onSuccess}) {
         }
     };
     return (
-        <div className='fixed inset-0 bg-black/40 flex justify-center items-center z-50'>
+        <div className='fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-center z-50'>
             <motion.div 
             initial={{scale : 0.8, opacity : 0}}
             animate={{scale : 1, opacity : 1}}
             className="bg-white p-6 rounded-xl w-100 relative">
                 <button 
                 onClick={onClose}
-                className="absolute top-3 right-3 cursor-pointer">
+                className="absolute top-3 right-3 cursor-pointer hover:scale-105 transition">
                     <FaRegWindowClose size={22}/>
                 </button>
 
@@ -125,7 +125,7 @@ function AddCandidateModal({onClose, onSuccess}) {
 
                 <button 
                 onClick={handleSubmit}
-                className="mt-4 w-full py-2 bg-yellow-400 rounded font-semibold">
+                className="mt-4 w-full py-2 bg-yellow-400 text-[#1A3C28] rounded font-semibold hover:scale-105 hover:bg-yellow-500 transition cursor-pointer">
                     Save Candidate
                 </button>
             </motion.div>

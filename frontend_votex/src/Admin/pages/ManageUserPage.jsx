@@ -139,7 +139,6 @@ function ManageUserPage() {
     const handleEdit = (user) => {
         setSelectedUser(user);
         setShowEdit(true);
-        toast.success("Edit")
     };
     const handleDelete = (user) => {
         setSelectedUser(user);
@@ -239,7 +238,7 @@ function ManageUserPage() {
                 />
 
                 <button 
-                onClick={handleDeleteAll}
+                onClick={() => setShowDeleteAll(true)}
                 className="bg-red-500 text-white px-4 py-2 rounded-lg hover:opacity-90 cursor-pointer">
                     Delete All
                 </button>
@@ -290,7 +289,7 @@ function ManageUserPage() {
             <DeleteAllUser
             isOpen={showDeleteAll}
             onClose={() => setShowDeleteAll(false)}
-            onDelete={() => toast.success("Silahkan Update Backend")}
+            onDelete={handleDeleteAll}
             />
 
             <ImportUserModal

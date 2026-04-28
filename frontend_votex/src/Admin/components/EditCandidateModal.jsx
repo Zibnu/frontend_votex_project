@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import apiServices from '../../utils/api'
 import toast from 'react-hot-toast'
@@ -73,7 +73,7 @@ function EditCandidateModal({onClose, onSuccess, candidate}) {
 
     return (
     <AnimatePresence>
-        <div className='fixed inset-0 bg-black/45 p-4 flex justify-center items-center z-50'>
+        <div className='fixed inset-0 bg-black/45 backdrop-blur-sm p-4 flex justify-center items-center z-50'>
             <motion.div 
             initial={{scale : 0.85, opacity : 0}}
             animate={{scale : 1, opacity : 1}}
@@ -82,7 +82,7 @@ function EditCandidateModal({onClose, onSuccess, candidate}) {
             className="bg-white p-6 rounded-xl w-100 relative">
                 <button 
                 onClick={onClose}
-                className="absolute top-3 right-3 cursor-pointer">
+                className="absolute top-3 right-3 cursor-pointer hover:scale-105 transition">
                     <FaRegWindowClose size={22}/>
                 </button>
 
@@ -130,7 +130,7 @@ function EditCandidateModal({onClose, onSuccess, candidate}) {
 
                     <button 
                     onClick={handleSubmit}
-                    className="mt-4 w-full py-2 bg-yellow-400 rounded font-semibold cursor-pointer">
+                    className="mt-4 w-full py-2 bg-yellow-400 text-[#1A3C28] hover:scale-105 hover:bg-yellow-500 transition duration-150 rounded font-semibold cursor-pointer">
                         Save Changes
                     </button>
                 </div>
