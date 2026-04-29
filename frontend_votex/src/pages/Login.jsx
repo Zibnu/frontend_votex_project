@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import toast from 'react-hot-toast';
 import apiServices from '../utils/api';
 import { useNavigate } from 'react-router-dom';
+import { LuEye, LuEyeClosed } from "react-icons/lu";
 
 function Login() {
     const navigate = useNavigate();
@@ -13,6 +14,7 @@ function Login() {
     });
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -105,20 +107,31 @@ function Login() {
                         className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] placeholder-[#334155] focus:ring-2 focus:ring-[#107065] outline-none transition"
                         />
 
-                        <input 
-                        type="password"
-                        name='password'
-                        placeholder='Password'
-                        value={form.password}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] placeholder-[#334155] focus:ring-2 focus:ring-[#107065] outline-none transition"
-                        />
+                        <div className="relative">
+                            <input 
+                            type={showPassword ? "text" : "password"}
+                            name='password'
+                            placeholder='Password'
+                            value={form.password}
+                            onChange={handleChange}
+                            required
+                            className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] placeholder-[#334155] focus:ring-2 focus:ring-[#107065] outline-none transition"
+                            />
+
+                            <motion.button 
+                            whileTap={{scale : 0.8}}
+                            type='button'
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 hover:text-gray-700 cursor-pointer transition">
+                                {showPassword ? <LuEye/> : <LuEyeClosed/> }
+                            </motion.button>
+                        </div>
 
                         <button 
                         type='submit'
                         disabled={loading}
-                        className="mt-4 w-full bg-[#FFC107] hover:bg-[#e1aa07] text-white py-2  rounded-lg font-semibold transition disabled:opacity-70">
+                        onClick={() => setShowPassword(false)}
+                        className="mt-4 w-full bg-[#FFC107] hover:bg-[#e1aa07] text-white py-2  rounded-lg font-semibold transition disabled:opacity-70 cursor-pointer">
                             {loading ? "Loading...." : "Login"}
                         </button>
                     </form>

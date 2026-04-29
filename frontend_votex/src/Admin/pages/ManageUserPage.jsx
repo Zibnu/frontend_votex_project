@@ -194,6 +194,7 @@ function ManageUserPage() {
 
             toast.success("Delete All User Success");
             fetchUser();
+            setShowDeleteAll(false);
         } catch (error) {
             console.error(error);
             toast.error(error.response?.data?.message || "Failed Delete All User");

@@ -86,7 +86,7 @@ function DashboardPage() {
 
     return (
         <div className='p-6 space-y-6'>
-            <div className="bg-white p-5 rounded-xl shadow py-6">
+            <div className="bg-white p-5 rounded-xl shadow py-8">
                 <h2 className="text-2xl font-semibold">Dashboard Page</h2>
             </div>
 

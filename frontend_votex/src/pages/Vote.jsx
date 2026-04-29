@@ -139,11 +139,11 @@ function Vote() {
                                 animationData={catAnimation}
                                 loop
                                 play
-                                style={{width : 200, height : 200}}
+                                className='w-90'
                             />
                         </div>
 
-                        <div className="text-center md:text-left ">
+                        <div className="text-center">
                             <h2 className="text-2xl font-bold text-[#B45309] mb-3">
                                 Sesi Pemilihan Sedang di Tutup
                             </h2>
@@ -170,7 +170,7 @@ function Vote() {
         <div className='min-h-screen bg-[#F5F7F5] p-6 flex flex-col gap-6 items-center'>
             <CardHeader user={user} leftHero={leftHero} rightHero={rightHero} logo={logoSekolah} />
 
-            <div className="grid md:grid-cols-2  gap-6 w-full max-w-5xl">
+            <div className="grid md:grid-cols-2 gap-6 w-full max-w-5xl">
                 {candidate.map((candidat, index) => (
                     <div 
                     key={candidat.id_candidate}
@@ -218,17 +218,18 @@ function Vote() {
                 ))}
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow w-full max-w-5xl items-center grid text-center  sticky">
+            <div className="bg-white p-6 rounded-xl shadow w-full max-w-5xl items-center grid text-center bottom-4 sticky">
                 <h5 className="mb-4 text-lg font-semibold">
                     Apakah Anda Yakin dengan Pilihan Anda?
                 </h5>
 
                 <button 
+                disabled={!selected}
                 onClick={handleVote}
-                className="
-                    relative overflow-hidden bg-[#FFC107] px-6 py-3 rounded-xl font-semibold text-[#1A3C28] cursor-pointer transition duration-300
-                    hover:scale-[1.02] hover:shadow-xl
-                ">
+                className={`
+                    relative overflow-hidden px-6 py-3 rounded-xl font-semibold text-[#1A3C28] transition duration-300
+                    hover:scale-[1.02] hover:shadow-xl ${selected ? "bg-[#FFC107] cursor-pointer" : "bg-gray-300 cursor-not-allowed"}
+                `}>
                     <span className="relative z-10">Kirim Suara Saya</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 hover:opacity-100 transition duration-700 -skew-12"></div>
                 </button>
@@ -243,8 +244,8 @@ function Vote() {
                     className="bg-white p-6 rounded-2xl w-full max-w-md max-h-[90vh] flex flex-col shadow-xl relative">
                         <button 
                         onClick={() => setDetailModal(null)}
-                        className="absolute top-2 right-2 cursor-pointer text-black hover:text-gray-400 transition-colors">
-                            <FiXSquare size={15}/>
+                        className="absolute top-2 right-2 cursor-pointer text-black hover:scale-105 transition">
+                            <FiXSquare size={21}/>
                         </button>
 
                     <div className="shrink-0">

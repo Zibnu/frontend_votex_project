@@ -109,9 +109,10 @@ function EditCandidateModal({onClose, onSuccess, candidate}) {
 
                         <input 
                         type="file"
-                        accept=".jpg,.jpeg,.png"
+                        accept=".jpg,.jpeg,.png, image/jpeg, image/png"
                         onChange={handleImage} 
                         className='w-full p-2 bg-gray-100 rounded'
+                        title='Upload New Image Candidat, Max Size 5Mb'
                         />
 
                     <textarea

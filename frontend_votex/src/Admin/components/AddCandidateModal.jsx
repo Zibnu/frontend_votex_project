@@ -89,7 +89,7 @@ function AddCandidateModal({onClose, onSuccess}) {
                     type="text" 
                     className="w-full p-2 bg-gray-100 rounded" 
                     onChange={handleChange}
-                    placeholder='Name Ketua'
+                    placeholder='Ketua Name'
                     name="ketua_name"
                     />
 
@@ -101,12 +101,13 @@ function AddCandidateModal({onClose, onSuccess}) {
                     name="wakil_name"
                     />
 
-                        <input 
-                        type="file"
-                        accept=".jpg,.png,.jpeg"
-                        onChange={handleImage} 
-                        className='w-full p-2 bg-gray-100 rounded'
-                        />
+                    <input 
+                    type="file"
+                    accept=".jpg,.png,.jpeg, image/jpeg, image/png"
+                    onChange={handleImage} 
+                    className='w-full p-2 bg-gray-100 rounded cursor-pointer'
+                    title='Upload Foto Candidat Max Size 5Mb'
+                    />
 
                     <textarea 
                     className="w-full p-2 bg-gray-100 rounded" 
