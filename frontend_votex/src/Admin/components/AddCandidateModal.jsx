@@ -66,8 +66,16 @@ function AddCandidateModal({onClose, onSuccess}) {
             onSuccess();
             onClose();
         } catch (error) {
-            console.error(error);
-            toast.error(error.response?.data?.message || "Failed Post Candidat");
+            const statusResponse = error.response?.status
+            const messageResponse = error.response?.data?.message
+
+            if(statusResponse === 400) {
+                toast.error("All Fiel Must Be Requeired!!!");
+            } else {
+                toast.error(messageResponse || "Failed Post Candidat");
+            }
+            // console.error(error);
+            // toast.error(error.response?.data?.message || "Failed Post Candidat");
         }
     };
     return (
