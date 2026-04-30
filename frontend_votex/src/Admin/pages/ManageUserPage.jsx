@@ -10,6 +10,7 @@ import EditUserModal from '../components/EditUserModal'
 import DeleteUserModal from '../components/DeleteUserModal'
 import ImportUserModal from '../components/ImportUserModal'
 import { useRef } from 'react'
+import { RingLoader } from "react-spinners";
 
 function ManageUserPage() {
     const [users, setUsers] = useState([]);
@@ -27,6 +28,7 @@ function ManageUserPage() {
     const [showDeleteAll, setShowDeleteAll] = useState(false);
     const [showImport, setShowImport] = useState(false);
     const fileInputRef = useRef(null);
+    const [importLoading, setImportLoading] = useState(false);
 
     const fetchUser = async () => {
         try {
@@ -74,6 +76,8 @@ function ManageUserPage() {
         formData.append("file", file);
 
         try {
+            setImportLoading(true);
+
             const token = localStorage.getItem("token");
             const res = await apiServices.post("/users/import", formData, {
                 headers : {
@@ -107,6 +111,8 @@ function ManageUserPage() {
         } catch (error) {
             console.error(error);
             toast.error(error.response?.data?.message || "Failed Import User Data");
+        } finally {
+            setImportLoading(false);
         }
     };
 
@@ -204,6 +210,18 @@ function ManageUserPage() {
     if (loading) return <div className="flex items-center justify-center h-screen text-gray-600">Loading....</div>
     return (
         <div className='p-6 space-y-6'>
+            {importLoading && (
+                <div className="fixed top-0 left-0 w-screen h-screen bg-black/50 flex items-center justify-center z-9999">
+                    <div className="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center gap-4">
+                        <RingLoader size={50} color='#107065'/>
+
+                        <p className="text-sm text-gray-600 text-center">
+                            Importing data, please wait.... <br />
+                            This may take a few seconds
+                        </p>
+                    </div>
+                </div>
+            )}
                     <input 
                     type="file"
                     accept='.xlsx, .xls'
