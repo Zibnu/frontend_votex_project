@@ -162,7 +162,7 @@ function DashboardPage() {
                         {data.percentage}%
                     </h1>
 
-                    <p className="text-[#37474F] text-sm"> 
+                    <p className="text-[#37474F] text-sm mt-4"> 
                         from all voters
                     </p>
                 </div>

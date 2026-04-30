@@ -91,6 +91,7 @@ function AddCandidateModal({onClose, onSuccess}) {
                     onChange={handleChange}
                     placeholder='Ketua Name'
                     name="ketua_name"
+                    required
                     />
 
                     <input 
@@ -99,6 +100,7 @@ function AddCandidateModal({onClose, onSuccess}) {
                     onChange={handleChange}
                     placeholder='Wakil Name'
                     name="wakil_name"
+                    required
                     />
 
                     <input 
@@ -107,6 +109,7 @@ function AddCandidateModal({onClose, onSuccess}) {
                     onChange={handleImage} 
                     className='w-full p-2 bg-gray-100 rounded cursor-pointer'
                     title='Upload Foto Candidat Max Size 5Mb'
+                    required
                     />
 
                     <textarea 
@@ -114,6 +117,8 @@ function AddCandidateModal({onClose, onSuccess}) {
                     onChange={handleChange}
                     placeholder='Vision'
                     name="visi"
+                    rows={2}
+                    required
                     />
 
                     <textarea 
@@ -121,6 +126,8 @@ function AddCandidateModal({onClose, onSuccess}) {
                     onChange={handleChange}
                     placeholder='Mision'
                     name="misi"
+                    rows={4}
+                    required
                     />
                 </div>
 

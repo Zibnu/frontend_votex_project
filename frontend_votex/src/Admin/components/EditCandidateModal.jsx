@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react'
+import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import apiServices from '../../utils/api'
 import toast from 'react-hot-toast'
@@ -79,7 +79,7 @@ function EditCandidateModal({onClose, onSuccess, candidate}) {
             animate={{scale : 1, opacity : 1}}
             exit={{scale : 0.85, opacity : 0}}
             transition={{type : "spring", stiffness : 300, damping : 25}}
-            className="bg-white p-6 rounded-xl w-100 relative">
+            className="bg-white p-6 rounded-xl w-100 relative overflow-y-auto">
                 <button 
                 onClick={onClose}
                 className="absolute top-3 right-3 cursor-pointer hover:scale-105 transition">
@@ -107,19 +107,20 @@ function EditCandidateModal({onClose, onSuccess, candidate}) {
                     value={form.wakil_name}
                     />
 
-                        <input 
-                        type="file"
-                        accept=".jpg,.jpeg,.png, image/jpeg, image/png"
-                        onChange={handleImage} 
-                        className='w-full p-2 bg-gray-100 rounded'
-                        title='Upload New Image Candidat, Max Size 5Mb'
-                        />
+                    <input 
+                    type="file"
+                    accept=".jpg,.jpeg,.png, image/jpeg, image/png"
+                    onChange={handleImage} 
+                    className='w-full p-2 bg-gray-100 rounded'
+                    title='Upload New Image Candidat, Max Size 5Mb'
+                    />
 
                     <textarea
                     name="visi"
                     value={form.visi}
                     onChange={handleChange}
                     className="w-full p-2 bg-gray-100 rounded"
+                    rows={2}
                     />
 
                     <textarea
@@ -127,6 +128,7 @@ function EditCandidateModal({onClose, onSuccess, candidate}) {
                     value={form.misi}
                     onChange={handleChange}
                     className="w-full p-2 bg-gray-100 rounded"
+                    rows={4}
                     />
 
                     <button 
