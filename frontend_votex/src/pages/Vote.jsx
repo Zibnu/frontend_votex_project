@@ -241,7 +241,7 @@ function Vote() {
                     <motion.div 
                     initial={{scale : 0.8}}
                     animate={{scale : 1}}
-                    className="bg-white p-6 rounded-2xl w-full max-w-md max-h-[90vh] flex flex-col shadow-xl relative">
+                    className="bg-white p-6 rounded-lg w-full max-w-md max-h-[90vh] flex flex-col shadow-xl relative">
                         <button 
                         onClick={() => setDetailModal(null)}
                         className="absolute top-2 right-2 cursor-pointer text-black hover:scale-105 transition">
