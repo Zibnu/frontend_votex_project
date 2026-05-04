@@ -109,8 +109,16 @@ function ManageUserPage() {
             e.target.value = null;
             fetchUser();
         } catch (error) {
-            console.error(error);
-            toast.error(error.response?.data?.message || "Failed Import User Data");
+            const statusCode = error.response.status;
+            const messageError = error.response?.data?.message;
+
+            if(statusCode === 400) {
+                toast.error("Your File has No Data");
+            } else if (statusCode === 409) {
+                toast.error("User Already Exists");
+            } else {
+                toast.error(messageError || "Failed Import Data User")
+            }
         } finally {
             setImportLoading(false);
         }
