@@ -36,7 +36,8 @@ function AddCandidateModal({onClose, onSuccess}) {
         };
 
         if(file.size > 5 * 1024 * 1024) {
-            toast.error("Size File Max 5 Mb")
+            toast.error("Size File Max 5 Mb");
+            e.target.value = null;
             return;
         };
 

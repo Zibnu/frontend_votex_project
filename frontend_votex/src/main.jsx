@@ -16,7 +16,7 @@ createRoot(document.getElementById('root')).render(
         <Toaster
         position='top-center'
         toastOptions={{
-          duration : 1000,
+          duration : 1200,
           style : {
             background : 'rgba(255, 255, 255, 0.8)',
             backdropFilter : 'blur(10px)',

@@ -57,7 +57,8 @@ function Login() {
             }
         } catch (error) {
             const status = error.response.status;
-            const messageError = error.response.data.message;
+            const messageError = error.response?.data?.message;
+            // console.log(error.response)
 
             if(status === 404) {
                 toast.error("Akun Belum Terdaftar");

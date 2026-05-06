@@ -9,6 +9,7 @@ import { TbLayoutSidebarRightCollapse, TbLayoutSidebarLeftCollapse } from "react
 import { NavLink, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MdOutlineLogout } from "react-icons/md";
+import toast from 'react-hot-toast';
 
 function Sidebar() {
     const [isOpen, setIsOpen] = useState(true);
@@ -24,6 +25,7 @@ function Sidebar() {
 
     const handleLogout = () => {
         localStorage.clear();
+        toast.success("Logout Success");
         navigate("/")
     }
     return (

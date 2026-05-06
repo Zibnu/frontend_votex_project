@@ -111,16 +111,18 @@ function ManageUserPage() {
         } catch (error) {
             const statusCode = error.response.status;
             const messageError = error.response?.data?.message;
-
             if(statusCode === 400) {
                 toast.error("Your File has No Data");
             } else if (statusCode === 409) {
                 toast.error("User Already Exists");
+            } else if ( statusCode === 422) {
+                toast.error("There is a duplicate NISN in the file");
             } else {
-                toast.error(messageError || "Failed Import Data User")
+                toast.error(messageError || "Failed Import Data User");
             }
         } finally {
             setImportLoading(false);
+            e.target.value = null; // reset input file
         }
     };
 

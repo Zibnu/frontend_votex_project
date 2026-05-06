@@ -5,13 +5,13 @@ import { FaRegWindowClose } from "react-icons/fa";
 function DeleteUserModal({isOpen, onClose, user, onDelete}) {
     useEffect(() => {
         if(isOpen) {
-            document.body.classList.add("overflow-hidden");
+            document.body.style.overflow = "hidden";
         } else {
-            document.body.classList.remove("overflow-hidden");
+            document.body.style.overflow = "unset";
         }
 
         return () => {
-            document.body.classList.remove("overflow-hidden");
+            document.body.style.overflow = "unset";
         }
     }, [isOpen])
     if(!isOpen) return null;
