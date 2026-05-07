@@ -27,56 +27,67 @@ function UserTable({users, currentPage, itemsPerPage , onEdit, onDelete}) {
                     </thead>
 
                     <tbody>
-                        {users.map((user, index) => (
-                            <tr 
-                            key={user.id_user}
-                            className="border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-150">
-                                <td className="px-4 py-3 text-xs font-medium text-[#212121]">
-                                    {(currentPage - 1) * itemsPerPage + index + 1}
-                                </td>
-
-                                <td className='py-4 px-3'>
-                                    <span className="text-sm font-medium text-gray-800 leading-tight">
-                                        {user.nisn}
-                                    </span>
-                                </td>
-                                <td className='py-4 px-3'>
-                                    <span className="text-sm font-medium text-gray-800 leading-tight">
-                                    {user.username}
-                                    </span>
-                                </td>
-                                <td className='py-4 px-3'>
-                                    <div className="flex items-center gap-2">
-                                        <span 
-                                        className={`w-3 h-3 rounded-full ${
-                                            user.has_voted ? "bg-green-500" : "bg-red-500"
-                                        }`}></span>
-
+                        {users.length > 0 ? (
+                            users.map((user, index) => (
+                                <tr 
+                                key={user.id_user}
+                                className="border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-150">
+                                    <td className="px-4 py-3 text-xs font-medium text-[#212121]">
+                                        {(currentPage - 1) * itemsPerPage + index + 1}
+                                    </td>
+    
+                                    <td className='py-4 px-3'>
                                         <span className="text-sm font-medium text-gray-800 leading-tight">
-                                            {user.has_voted ? "Have Chosen" : "Haven't Chosen Yet"}
+                                            {user.nisn}
                                         </span>
-                                    </div>
-                                </td>
-
-                                <td className="py-4 px-3">
-                                    <div className="flex items-center justify-center gap-1.5">
-                                        <button 
-                                        onClick={() => onEdit(user)}
-                                        title='Edit'
-                                        className="w-8 h-8 flex items-center justify-center rounded-lg border border-blue-100 bg-blue-50 hover:bg-blue-100 hover:scale-105 cursor-pointer">
-                                            <FaPencilAlt size={12} color='#185FA5'/>
-                                        </button>
-
-                                        <button 
-                                        onClick={() => onDelete(user)}
-                                        title='Delete'
-                                        className="w-8 h-8 flex items-center justify-center rounded-lg border border-red-100 bg-red-50 hover:bg-red-100 transition-all duration-150 hover:scale-105 cursor-pointer">
-                                            <FaRegTrashCan size={12} color='#A32D2D'/>
-                                        </button>
-                                    </div>
+                                    </td>
+                                    <td className='py-4 px-3'>
+                                        <span className="text-sm font-medium text-gray-800 leading-tight">
+                                        {user.username}
+                                        </span>
+                                    </td>
+                                    <td className='py-4 px-3'>
+                                        <div className="flex items-center gap-2">
+                                            <span 
+                                            className={`w-3 h-3 rounded-full ${
+                                                user.has_voted ? "bg-green-500" : "bg-red-500"
+                                            }`}></span>
+    
+                                            <span className="text-sm font-medium text-gray-800 leading-tight">
+                                                {user.has_voted ? "Have Chosen" : "Haven't Chosen Yet"}
+                                            </span>
+                                        </div>
+                                    </td>
+    
+                                    <td className="py-4 px-3">
+                                        <div className="flex items-center justify-center gap-1.5">
+                                            <button 
+                                            onClick={() => onEdit(user)}
+                                            title='Edit'
+                                            className="w-8 h-8 flex items-center justify-center rounded-lg border border-blue-100 bg-blue-50 hover:bg-blue-100 hover:scale-105 cursor-pointer">
+                                                <FaPencilAlt size={12} color='#185FA5'/>
+                                            </button>
+    
+                                            <button 
+                                            onClick={() => onDelete(user)}
+                                            title='Delete'
+                                            className="w-8 h-8 flex items-center justify-center rounded-lg border border-red-100 bg-red-50 hover:bg-red-100 transition-all duration-150 hover:scale-105 cursor-pointer">
+                                                <FaRegTrashCan size={12} color='#A32D2D'/>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td 
+                                colSpan={5}
+                                className="text-center text-gray-500 p-4">
+                                    Please add a new user to pupulate this table
                                 </td>
                             </tr>
-                        ))}
+                        )
+                    }
                     </tbody>
                 </table>
             </div>
