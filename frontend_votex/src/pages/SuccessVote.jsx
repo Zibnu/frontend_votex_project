@@ -3,6 +3,7 @@ import successAnimation from "../assets/animation/Businessman flies up with rock
 import Lottie from "react-lottie-player";
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function SuccessVote() {
     const navigate = useNavigate();
@@ -12,6 +13,19 @@ function SuccessVote() {
         toast.success("Logout Berhasil");
         navigate("/")
     }
+
+    useEffect(() => {
+        // console.log("Start")
+        const timer = setTimeout(() => {
+            // console.log("Done")
+            handleLogout();
+        }, 3500);
+        return () => {
+            // console.log("Clear")
+            clearTimeout(timer);
+        }
+    }, [])
+    // console.log(timer);
     return (
         <div className='min-h-screen bg-gradient-to-br from-[#F5F7F5] via-[#E8F5E9] to-[#F5F7F5] flex flex-col items-center justify-center p-6'>
             <div className="relative overflow-hidden bg-white/70 backdrop-blur-lg p-10 rounded-2xl shadow-xl w-full max-w-xl text-center border border-white/40">
