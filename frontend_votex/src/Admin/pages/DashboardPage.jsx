@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useQuery } from '@tanstack/react-query';
+import { BiSolidFilePdf } from "react-icons/bi";
 
 function DashboardPage() {
     // const [data, setData] = useState(null);
@@ -84,10 +85,52 @@ function DashboardPage() {
     const barLabels = data.votesPerCandidate.map((item) => `${item.ketua_name}`);
     const barValues = data.votesPerCandidate.map((item) => item.total_votes);
 
+    const handleExportPDF = async () => {
+        try {
+            const token = localStorage.getItem("token");
+
+            const res = await apiServices.get("/dashboard/export_pdf", {
+                headers : {
+                    Authorization : `Bearer ${token}`,
+                },
+                responseType : "blob",
+            });
+
+            const url = window.URL.createObjectURL(
+                new Blob([res.data])
+            );
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "votex-result.pdf");
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+
+            toast.success("Export PDF Success");
+        } catch (error) {
+            console.error(error);
+            toast.error(error.response?.data?.message || "Failed Export PDF")
+        }
+    }
+
     return (
         <div className='p-6 space-y-6'>
-            <div className="bg-white p-5 rounded-xl shadow py-8">
+            <div className="bg-white p-5 rounded-xl shadow py-8 flex justify-between items-center">
                 <h2 className="text-2xl font-semibold">Dashboard Page</h2>
+
+                <button 
+                onClick={handleExportPDF}
+                disabled={data.isVotingOpen}
+                title={`${data.isVotingOpen ? "Turn Off System to Export Result Voting" : "" }`}
+                className={`
+                flex items-center gap-2 px-5 py-3 rounded-xl font-medium transition duration-300
+                ${data.isVotingOpen ? "bg-[#9CA3AF] text-[#F3F4F6] cursor-not-allowed" : "bg-[#2563EB] text-white hover:bg-[#1D4ED8] hover:scale-105 cursor-pointer"}
+                `}>
+                    <BiSolidFilePdf size={18}/>
+                    Export PDF
+                </button>
             </div>
 
             <div className="grid grid-cols-4 gap-4">
