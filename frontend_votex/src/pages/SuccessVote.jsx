@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 function SuccessVote() {
     const navigate = useNavigate();
 
+    
     const handleLogout = () => {
         localStorage.clear();
         toast.success("Logout Berhasil");
