@@ -60,7 +60,6 @@ function DashboardPage() {
         return <div className="text-center text-red-500">Something Wrong...</div>
     }
     if(!data) return <div className="text-center text-red-400">No Data!!</div>
-
     const pieData = [
         {
             id : 0,
@@ -110,8 +109,18 @@ function DashboardPage() {
 
             toast.success("Export PDF Success");
         } catch (error) {
-            console.error(error);
-            toast.error(error.response?.data?.message || "Failed Export PDF")
+            const statusCode = error.response?.status;
+            const messageError = error.response?.data?.message;
+            if(statusCode === 400) {
+                toast.error("No voting data available");
+            } else if(statusCode === 403) {
+                toast.error("System Voting Is Open, Please Close For Export Voting Result!!");
+            } else if(statusCode === 404) {
+                toast.error("No candidate data available");
+            } else {
+                toast.error(messageError || "Failed Export PDF");
+                console.error(error);
+            }
         }
     }
 
