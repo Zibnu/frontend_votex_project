@@ -10,11 +10,16 @@ import ManageUserPage from '../Admin/pages/ManageUserPage';
 import SettingPage from "../Admin/pages/SettingPage";
 import AdminRoute from './AdminRoute';
 import UserRoute from './UserRoute';
+import ProtectLoginRoute from './ProtectLoginRoute';
 
 function AppRouter() {
     return (
         <Routes>
-            <Route path='/' element={<Login />} />
+            <Route path='/' element={
+                <ProtectLoginRoute>
+                    <Login />
+                </ProtectLoginRoute>
+            } />
 
             <Route path='/vote' element={
                 <UserRoute>
