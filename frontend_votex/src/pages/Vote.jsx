@@ -93,6 +93,7 @@ function Vote() {
 
             if (status === 400) {
                 toast.error("Sudah Melakukan Voted");
+                localStorage.clear();
                 navigate("/");
             } else if (status === 403) {
                 setIsOpen(false);
