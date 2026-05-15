@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import authHero from "../assets/image/authHero.png";
+import authHero from "../assets/image/heroAuth_strokeStrong.png";
 import { motion } from "framer-motion";
 import toast from 'react-hot-toast';
 import apiServices from '../utils/api';
@@ -86,7 +86,7 @@ function Login() {
                     <img 
                     src={authHero}
                     alt="Hero Auth"
-                    className="w-full max-w-58 object-contain"
+                    className="w-full max-w-66 object-contain"
                     />
                     <p className="text-lg md:text-xl font-semibold leading-relaxed">
                         Pilih Kandidat Ketua dan Wakil Ketua Osis Terbaik Menurut Versi Kamu Sendiri

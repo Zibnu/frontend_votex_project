@@ -3,7 +3,7 @@ import React from 'react'
 function CardHeader({user, leftHero, rightHero, logo}) {
     return (
         <div className='bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-lg w-full max-w-5xl flex items-center justify-between border border-white/40 hover:scale-[1.01] transition duration-300'>
-            <img src={leftHero} alt="leftHero" className='w-24 hidden md:block' />
+            <img src={leftHero} alt="leftHero" className='w-45 hidden md:block' />
             <div className="text-center">
                 <img src={logo} alt="logoSekolah" className="w-12 mx-auto mb-2" />
 
@@ -21,7 +21,7 @@ function CardHeader({user, leftHero, rightHero, logo}) {
                 </p>
             </div>
 
-            <img src={rightHero} alt="rightHero" className="w-24 hidden md:block" />
+            <img src={rightHero} alt="rightHero" className="w-45 hidden md:block" />
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import leftHero from "../assets/image/leftHeroUserPage.png"
-import rightHero from "../assets/image/rightHeroUserPage.png"
+import leftHero from "../assets/image/icon_1_noBg.png"
+import rightHero from "../assets/image/icon_2_noBg.png"
 import logoSekolah from "../assets/image/logoSekolah.png";
 import apiServices from '../utils/api';
 import { FiXSquare } from "react-icons/fi";
