@@ -38,8 +38,9 @@ function Vote() {
             setUser(userData);
 
             if (userData.has_voted) {
+                localStorage.clear();
                 toast.error("Kamu Sudah Pernah Voting");
-                return navigate("/");
+                return navigate("/", {replace : true});
             }
 
             const settingRes = await apiServices.get("/setting/data_setting", {
@@ -93,7 +94,6 @@ function Vote() {
 
             if (status === 400) {
                 toast.error("Sudah Melakukan Voted");
-                localStorage.clear();
                 navigate("/");
             } else if (status === 403) {
                 setIsOpen(false);
