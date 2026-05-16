@@ -202,5 +202,3 @@ Setelah project terhubung dengan Vercel, setiap kali kamu melakukan **`git push`
 | `git push` ditolak | Gunakan Personal Access Token (PAT) GitHub sebagai autentikasi |
 
 ---
-
-> Dibuat dengan ❤️ untuk project **Votex**
