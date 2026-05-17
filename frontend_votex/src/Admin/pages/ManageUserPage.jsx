@@ -16,6 +16,7 @@ function ManageUserPage() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
+    const [checkVote, setCheckVote] = useState("");
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState({
         currentPage : 1,
@@ -34,7 +35,7 @@ function ManageUserPage() {
         try {
             const token = localStorage.getItem("token");
 
-            const res = await apiServices.get(`/users/users_data?page=${page}&search=${search}`, {
+            const res = await apiServices.get(`/users/users_data?page=${page}&search=${search}&check_vote=${checkVote}`, {
                 headers : {
                     Authorization : `Bearer ${token}`,
                 },
@@ -52,12 +53,17 @@ function ManageUserPage() {
 
     useEffect(() => {
         fetchUser();
-    }, [page, search]);
+    }, [page, search, checkVote]);
 
     const handleSearchInput = (e) => {
         setSearch(e.target.value);
         setPage(1);
     };
+
+    const handleFilterVote = (e) => {
+        setCheckVote(e.target.value);
+        setPage(1);
+    }
 
     const handleImportClick = () => {
         setShowImport(true);
@@ -257,18 +263,37 @@ function ManageUserPage() {
                 </div>
             </div>
 
-            <div className="bg-white p-4 rounded-xl shadow flex justify-between items-center">
-                <input 
-                type="text" 
-                className="border px-4 py-2 rounded-lg w-1/3" 
-                placeholder='Search by Name or NISN'
-                value={search}
-                onChange={handleSearchInput}
-                />
+            <div className="bg-white p-4 rounded-xl shadow flex justify-between items-center gap-4">
+
+                <div className="flex items-center gap-3 w-full flex-1">
+                    <input
+                    type="text" 
+                    className="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg w-full sm:w-auto focus:ring-2 focus:ring-[#107065] focus:border-[#107065] outline-none transition-all shadow-sm" 
+                    placeholder='Search by Name or NISN'
+                    value={search}
+                    onChange={handleSearchInput}
+                    />
+
+                    <select 
+                    value={checkVote}
+                    onChange={handleFilterVote}
+                    className="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg bg-white cursor-pointer hover:bg-gray-50 focus:ring-2 focus:ring-[#107065] focus:border-[#107065] outline-none transition-all shadow-sm w-full sm:w-auto"
+                    >
+                        <option value="">
+                            All Status
+                        </option>
+                        <option value="true">
+                            Has Voted
+                        </option>
+                        <option value="false">
+                            Not Voted
+                        </option>
+                    </select>
+                </div>
 
                 <button 
                 onClick={() => setShowDeleteAll(true)}
-                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:opacity-90 cursor-pointer">
+                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:opacity-80 cursor-pointer transition-all">
                     Delete All
                 </button>
             </div>
