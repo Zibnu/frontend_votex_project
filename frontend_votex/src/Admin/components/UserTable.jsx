@@ -83,7 +83,7 @@ function UserTable({users, currentPage, itemsPerPage , onEdit, onDelete}) {
                                 <td 
                                 colSpan={5}
                                 className="text-center text-gray-500 p-4">
-                                    Please add a new user to pupulate this table
+                                    No Data
                                 </td>
                             </tr>
                         )

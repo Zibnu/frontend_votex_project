@@ -11,6 +11,7 @@ import SettingPage from "../Admin/pages/SettingPage";
 import AdminRoute from './AdminRoute';
 import UserRoute from './UserRoute';
 import ProtectLoginRoute from './ProtectLoginRoute';
+import RegisterAdminAccount from '../pages/RegisterAdminAccount';
 
 function AppRouter() {
     return (
@@ -20,6 +21,13 @@ function AppRouter() {
                     <Login />
                 </ProtectLoginRoute>
             } />
+
+            <Route path='/register-admin' element={
+                <ProtectLoginRoute>
+                    <RegisterAdminAccount/>
+                </ProtectLoginRoute>
+            }
+            />
 
             <Route path='/vote' element={
                 <UserRoute>
