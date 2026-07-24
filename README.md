@@ -6,7 +6,7 @@ Dokumentasi ini menjelaskan cara melakukan **fork**, **menjalankan secara lokal*
 ---
 
 ## ⚠️⚠️Important⚠️⚠️
-1. Sebaiknya Lakukan Fork Backendnya terlebih dahulu di repository backend votex
+1. Sebaiknya Lakukan Deploy Backendnya terlebih dahulu di repository backend votex
 2. Silahkan Buat Akun Admin Setelah Deploy Karena Database nya masih kosong, Silahkan akses URL berikut setelah semua di deploy :
 ```
    https://frontend-votex-project.vercel.app/register-admin
