@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import apiServices from '../utils/api'
 import authHero from "../assets/image/icon_1_noBg.png"
 import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import { motion } from 'framer-motion';
 
@@ -109,14 +109,22 @@ function RegisterAdminAccount() {
                                 </motion.button>
                             </div>
 
-                            <button 
-                                type="submit"
-                                disabled={loading}
-                                onClick={() => setShowPassword(false)}
-                                className='mt-4 w-full bg-[#FFC107] hover:bg-[#e1aa07] text-white py-2  rounded-lg font-semibold transition disabled:opacity-70 cursor-pointer'
-                            >
-                                {loading ? "Loading..." : "Register"}
-                            </button>
+                            <div className="flex flex-col gap-1.5">
+                                <button 
+                                    type="submit"
+                                    disabled={loading}
+                                    onClick={() => setShowPassword(false)}
+                                    className='mt-4 w-full bg-[#FFC107] hover:bg-[#e1aa07] text-white py-2  rounded-lg font-semibold transition disabled:opacity-70 cursor-pointer active::scale-95'
+                                >
+                                    {loading ? "Loading..." : "Register"}
+                                </button>
+                                <p className="text-center text-sm text-[#333333]">
+                                    Already have an admin account?
+                                    <Link to="/" className='m-1 text-[#107065] font-medium hover:underline hover:text-[#2be0cb]'>
+                                        Sign In
+                                    </Link>
+                                </p>
+                            </div>
                         </form>
                     </div>
             </motion.div>
